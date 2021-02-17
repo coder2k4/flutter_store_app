@@ -37,8 +37,16 @@ class Products with ChangeNotifier {
     ),
   ];
 
+  var showFavoriteItems = false;
+
   List<Product> get items {
+    if(showFavoriteItems)
+      return _items.where((element) => element.isFavorite).toList();
     return [..._items];
+  }
+
+  List<Product> get favoriteItems {
+    return _items.where((element) => element.isFavorite).toList();
   }
 
   Product findById(String id) {
