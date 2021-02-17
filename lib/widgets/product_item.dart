@@ -6,16 +6,12 @@ import 'package:provider/provider.dart';
 class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     final product = Provider.of<Product>(context, listen: false);
-
-    print(product.id);
-
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
         child: GestureDetector(
-          onTap: (){
+          onTap: () {
             Navigator.of(context).pushNamed(
               ProductDetailScreen.routeName,
               arguments: product.id,
@@ -42,7 +38,9 @@ class ProductItem extends StatelessWidget {
           title: Text(
             product.title,
             textAlign: TextAlign.center,
-            style: TextStyle(color: Theme.of(context).primaryColor,),
+            style: TextStyle(
+              color: Theme.of(context).primaryColor,
+            ),
           ),
           trailing: IconButton(
             onPressed: () {},
