@@ -38,4 +38,10 @@ class Cart with ChangeNotifier{
     // не забываем про прослушку на изменение данных
     notifyListeners();
   }
+
+  void removeItem(String productId) {
+    _items.remove(productId);
+    notifyListeners(); // НЕ ЗАБУДЬ!!!!
+  }
+
 }
