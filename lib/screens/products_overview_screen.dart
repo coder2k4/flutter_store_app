@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_store_app/providers/cart.dart';
 import 'package:flutter_store_app/providers/product.dart';
 import 'package:flutter_store_app/providers/products.dart';
+import 'package:flutter_store_app/screens/cart_screen.dart';
+import 'package:flutter_store_app/widgets/badge.dart';
 import 'package:flutter_store_app/widgets/products_grid.dart';
 import 'package:provider/provider.dart';
 
@@ -24,13 +27,14 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         title: Text('X-SIGHT SHOP'),
         actions: [
           PopupMenuButton(
-            itemBuilder: (_) => [
+            itemBuilder: (_) =>
+            [
               PopupMenuItem(
-                child: Text('Only favorites'),
+                child: Text('Только избранные товары'),
                 value: FilterOptions.Favorite,
               ),
               PopupMenuItem(
-                child: Text('All'),
+                child: Text('Весь каталог'),
                 value: FilterOptions.All,
               ),
             ],
@@ -45,7 +49,22 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
                   favItem = false;
                 });
             },
-          )
+          ),
+          Consumer<Cart>(builder: (_, cart, ch) =>
+              Badge(
+                child: ch,
+                value: cart.itemCount.toString(),
+              ),
+            child: IconButton(
+              icon: Icon(
+                Icons.shopping_cart,
+              ),
+              onPressed: (){
+                Navigator.of(context).pushNamed(CartScreen.routeName);
+              },
+            ),
+            //todo вставить виджет для корзины. BADGE
+          ),
         ],
       ),
       body: ProductsGrid(favItem),
