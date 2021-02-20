@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_store_app/providers/cart.dart' show Cart;
+import 'package:flutter_store_app/providers/orders.dart';
 import 'package:flutter_store_app/widgets/cart_item.dart';
 import 'package:provider/provider.dart';
 
@@ -36,7 +37,15 @@ class CartScreen extends StatelessWidget {
                     ),
                     backgroundColor: Theme.of(context).primaryColor,
                   ),
-                  FlatButton(onPressed: () {}, child: Text('Заказать')),
+                  FlatButton(
+                      onPressed: () {
+                        Provider.of<Orders>(context, listen: false).addOrder(
+                          cart.items.values.toList(),
+                          cart.totalAmount,
+                        );
+                        cart.clearCart();
+                      },
+                      child: Text('Заказать')),
                 ],
               ),
             ),
