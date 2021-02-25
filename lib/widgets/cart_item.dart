@@ -11,7 +11,7 @@ class CartItem extends StatelessWidget {
 
   const CartItem(
       {this.id = '1',
-        this.productId,
+      this.productId,
       this.price = 100,
       this.title = 'test',
       this.quantity = 1});
@@ -35,7 +35,7 @@ class CartItem extends StatelessWidget {
         ),
       ),
       direction: DismissDirection.endToStart,
-      onDismissed: (direction){
+      onDismissed: (direction) {
         Provider.of<Cart>(context, listen: false).removeItem(productId);
       },
       child: Card(
@@ -59,6 +59,27 @@ class CartItem extends StatelessWidget {
           ),
         ),
       ),
+      confirmDismiss: (direction) {
+        return showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Вы уверены что хотите удалить',style: TextStyle(color: Theme.of(context).accentColor),),
+            content: Text('Точно удаляем? Тест'),
+            actions: [
+              FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(true);
+                  },
+                  child: Text('YES')),
+              FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(false);
+                  },
+                  child: Text('NO')),
+            ],
+          ),
+        );
+      },
     );
   }
 }
